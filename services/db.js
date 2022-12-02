@@ -1,8 +1,6 @@
-const { MongoClient } = require('mongodb');
-// or as an es module:
-// import { MongoClient } from 'mongodb'
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
 
-// Connection URL
 const url = 'mongodb://localhost:27017';
 const dbName = 'to-do-db';
 const client = new MongoClient(url, { useUnifiedTopology: true });
@@ -39,7 +37,6 @@ const findDocuments = async () => {
 
 const insertDocuments = async (document) => {
     const collection = _db.collection('to-do-collection')
-
     
     try {
         const results = await collection.insertOne(document);
@@ -55,7 +52,7 @@ const updateDocument = async (document) => {
     const collection = _db.collection('to-do-collection')
 
     try {
-        const results = await collection.updateOne({_id: document._id }, { $set:document });
+        const results = await collection.updateOne({ _id: document._id }, { $set: document });
         return results
     } catch (error) {
         throw new Error(error)
@@ -67,7 +64,7 @@ const removeDocument = async (document) => {
     const collection = _db.collection('to-do-collection')
 
     try {
-        const results = await collection.deleteOne({_id: document._id });
+        const results = await collection.deleteOne({ _id: document._id });
         return results
     } catch (error) {
         throw new Error(error)
