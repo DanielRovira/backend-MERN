@@ -2,7 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
 const url = 'mongodb://localhost:27017';
-const dbName = 'to-do-db';
+const dbName = 'financial-control';
 const client = new MongoClient(url, { useUnifiedTopology: true });
 
 var _db;
@@ -19,7 +19,7 @@ function connectToDB(callback) {
 
 const findDocuments = async () => {
 
-    const collection = _db.collection('to-do-collection');
+    const collection = _db.collection('financial-control-collection');
 
     try {
         const results = await collection.find({}).toArray();
@@ -36,7 +36,7 @@ const findDocuments = async () => {
 
 
 const insertDocuments = async (document) => {
-    const collection = _db.collection('to-do-collection')
+    const collection = _db.collection('financial-control-collection')
     
     try {
         const results = await collection.insertOne(document);
@@ -49,7 +49,7 @@ const insertDocuments = async (document) => {
 
 const updateDocument = async (document) => {
 
-    const collection = _db.collection('to-do-collection')
+    const collection = _db.collection('financial-control-collection')
 
     try {
         const results = await collection.updateOne({ _id: document._id }, { $set: document });
@@ -61,7 +61,7 @@ const updateDocument = async (document) => {
 
 const removeDocument = async (document) => {
 
-    const collection = _db.collection('to-do-collection')
+    const collection = _db.collection('financial-control-collection')
 
     try {
         const results = await collection.deleteOne({ _id: document._id });

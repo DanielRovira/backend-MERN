@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express()
-const port = 3000
+const port = 3001
 const cors = require('cors');
-const todoRoute = require("./routes/todo")
+const dbRoute = require("./routes/financial-control")
 
 app.use(express.json());
 app.use(cors());
-app.use("/todo", todoRoute);
+app.use("/financial-control", dbRoute);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
