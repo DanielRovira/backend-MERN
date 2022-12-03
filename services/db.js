@@ -1,8 +1,9 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+require('dotenv').config();
 
-const url = 'mongodb://localhost:27017';
-const dbName = 'financial-control';
+const url = `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_PATH}/?authMechanism=DEFAULT`;
+const dbName = process.env.DB;
 const client = new MongoClient(url, { useUnifiedTopology: true });
 
 var _db;
@@ -19,7 +20,7 @@ function connectToDB(callback) {
 
 const findDocuments = async () => {
 
-    const collection = _db.collection('financial-control-collection');
+    const collection = _db.collection(process.env.DB_COLLECTION);
 
     try {
         const results = await collection.find({}).toArray();
@@ -36,7 +37,7 @@ const findDocuments = async () => {
 
 
 const insertDocuments = async (document) => {
-    const collection = _db.collection('financial-control-collection')
+    const collection = _db.collection(process.env.DB_COLLECTION)
     
     try {
         const results = await collection.insertOne(document);
@@ -49,7 +50,7 @@ const insertDocuments = async (document) => {
 
 const updateDocument = async (document) => {
 
-    const collection = _db.collection('financial-control-collection')
+    const collection = _db.collection(process.env.DB_COLLECTION)
 
     try {
         const results = await collection.updateOne({ _id: document._id }, { $set: document });
@@ -61,7 +62,7 @@ const updateDocument = async (document) => {
 
 const removeDocument = async (document) => {
 
-    const collection = _db.collection('financial-control-collection')
+    const collection = _db.collection(process.env.DB_COLLECTION)
 
     try {
         const results = await collection.deleteOne({ _id: document._id });
