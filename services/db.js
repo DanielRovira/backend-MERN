@@ -2,7 +2,9 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 require('dotenv').config();
 
-const url = `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_PATH}/?authMechanism=DEFAULT`;
+const url = `mongodb://myUserAdmin:${process.env.DB_PASS}@${process.env.DB_PATH}/?authMechanism=DEFAULT`;
+// const url = `mongodb+srv://admin:${process.env.DB_PASS}@cluster0.ifkxjyh.mongodb.net/?retryWrites=true&w=majority`;
+
 const dbName = process.env.DB;
 const client = new MongoClient(url, { useUnifiedTopology: true });
 
@@ -29,12 +31,6 @@ const findDocuments = async () => {
         throw new Error(error)
     }
 };
-
-// connectToDB(async () => {
-//     const results = await findDocuments()
-//     console.log(results)
-// })
-
 
 const insertDocuments = async (document) => {
     const collection = _db.collection(process.env.DB_COLLECTION)
